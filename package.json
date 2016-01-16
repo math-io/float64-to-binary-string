@@ -67,6 +67,7 @@
     "jshint-stylish": "2.x.x",
     "math-power": "^1.0.0",
     "math-round": "^1.0.0",
+    "object-keys": "^1.0.9",
     "tap-spec": "4.x.x",
     "tape": "4.x.x",
     "testling": "1.x.x"
