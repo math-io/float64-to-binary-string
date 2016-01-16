@@ -33,7 +33,7 @@ str = bits( -1e308 );
 // returns 1111111111100001110011001111001110000101111010111100100010100000
 ```
 
-The `function` handles subnormals.
+The `function` handles [subnormals][subnormals].
 
 ``` javascript
 str = bits( -3.14e-320 );
@@ -236,3 +236,4 @@ Copyright &copy; 2016. The [Compute.io][compute-io] Authors.
 
 [compute-io]: https://github.com/compute-io/
 [ieee754]: https://en.wikipedia.org/wiki/IEEE_754-1985
+[subnormals]: https://en.wikipedia.org/wiki/Denormal_number
