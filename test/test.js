@@ -3,7 +3,6 @@
 // MODULES //
 
 var tape = require( 'tape' );
-var getKeys = require( 'object-keys' );
 var repeat = require( 'utils-repeat-string' );
 var rpad = require( 'utils-right-pad-string' );
 var pinf = require( 'const-pinf-float64' );
@@ -16,7 +15,7 @@ var bits = require( './../lib' );
 var small = require( './fixtures/bits_1e-200_1e-308.json' );
 var medium = require( './fixtures/bits_-1e3_1e3.json' );
 var large = require( './fixtures/bits_1e200_1e308.json' );
-var subnormal = require( './fixtures/bits_1e-310_5e-324.json' );
+var subnormal = require( './fixtures/bits_1e-308_5e-324.json' );
 
 
 // TESTS //
@@ -77,69 +76,61 @@ tape( 'if provided `NaN`, the function returns a string where the sign bit may b
 });
 
 tape( 'the function returns literal bit representations for small values', function test( t ) {
-	var keys;
-	var key;
-	var val;
+	var expected;
 	var str;
+	var x;
 	var i;
 
-	keys = getKeys( small );
-	for ( i = 0; i < keys.length; i++ ) {
-		key = keys[ i ];
-		val = parseFloat( key );
-		str = bits( val );
-		t.equal( str, small[ key ], 'returns bit literal for ' + key );
+	x = small.x;
+	expected = small.expected;
+	for ( i = 0; i < x.length; i++ ) {
+		str = bits( x[ i ] );
+		t.equal( str, expected[ i ], 'returns bit literal for ' + x[ i ] );
 	}
 	t.end();
 });
 
 tape( 'the function returns literal bit representations for medium values', function test( t ) {
-	var keys;
-	var key;
-	var val;
+	var expected;
 	var str;
+	var x;
 	var i;
 
-	keys = getKeys( medium );
-	for ( i = 0; i < keys.length; i++ ) {
-		key = keys[ i ];
-		val = parseFloat( key );
-		str = bits( val );
-		t.equal( str, medium[ key ], 'returns bit literal for ' + key );
+	x = medium.x;
+	expected = medium.expected;
+	for ( i = 0; i < x.length; i++ ) {
+		str = bits( x[ i ] );
+		t.equal( str, expected[ i ], 'returns bit literal for ' + x[ i ] );
 	}
 	t.end();
 });
 
 tape( 'the function returns literal bit representations for large values', function test( t ) {
-	var keys;
-	var key;
-	var val;
+	var expected;
 	var str;
+	var x;
 	var i;
 
-	keys = getKeys( large );
-	for ( i = 0; i < keys.length; i++ ) {
-		key = keys[ i ];
-		val = parseFloat( key );
-		str = bits( val );
-		t.equal( str, large[ key ], 'returns bit literal for ' + key );
+	x = large.x;
+	expected = large.expected;
+	for ( i = 0; i < x.length; i++ ) {
+		str = bits( x[ i ] );
+		t.equal( str, expected[ i ], 'returns bit literal for ' + x[ i ] );
 	}
 	t.end();
 });
 
 tape( 'the function returns literal bit representations for subnormal values', function test( t ) {
-	var keys;
-	var key;
-	var val;
+	var expected;
 	var str;
+	var x;
 	var i;
 
-	keys = getKeys( subnormal );
-	for ( i = 0; i < keys.length; i++ ) {
-		key = keys[ i ];
-		val = parseFloat( key );
-		str = bits( val );
-		t.equal( str, subnormal[ key ], 'returns bit literal for ' + key );
+	x = subnormal.x;
+	expected = subnormal.expected;
+	for ( i = 0; i < x.length; i++ ) {
+		str = bits( x[ i ] );
+		t.equal( str, expected[ i ], 'returns bit literal for ' + x[ i ] );
 	}
 	t.end();
 });
