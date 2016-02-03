@@ -2,7 +2,7 @@ Bits
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][build-image]][build-url] [![Coverage Status][coverage-image]][coverage-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Returns a string giving the literal bit representation of a [double-precision floating-point][ieee754] number.
+> Returns a string giving the literal bit representation of a [double-precision floating-point number][ieee754].
 
 
 ## Installation
@@ -20,49 +20,46 @@ var bits = require( 'math-float64-bits' );
 
 #### bits( x )
 
-Returns a `string` giving the literal bit representation of a [double-precision floating-point][ieee754] `number`.
+Returns a `string` giving the literal bit representation of a [double-precision floating-point number][ieee754].
 
 ``` javascript
 var str = bits( 4 );
-// returns 0100000000010000000000000000000000000000000000000000000000000000
+// returns '0100000000010000000000000000000000000000000000000000000000000000'
 
 str = bits( Math.PI );
-// returns 0100000000001001001000011111101101010100010001000010110100011000
+// returns '0100000000001001001000011111101101010100010001000010110100011000'
 
 str = bits( -1e308 );
-// returns 1111111111100001110011001111001110000101111010111100100010100000
+// returns '1111111111100001110011001111001110000101111010111100100010100000'
 ```
 
 The `function` handles [subnormals][subnormals].
 
 ``` javascript
 str = bits( -3.14e-320 );
-// returns 1000000000000000000000000000000000000000000000000001100011010011
+// returns '1000000000000000000000000000000000000000000000000001100011010011'
 
 str = bits( 5e-324 );
-// returns 0000000000000000000000000000000000000000000000000000000000000001
+// returns '0000000000000000000000000000000000000000000000000000000000000001'
 ```
 
 The `function` handles special values.
 
 ``` javascript
-var pinf = require( 'const-pinf-float64' );
-var ninf = require( 'const-ninf-float64' );
-
 str = bits( 0 );
-// returns 0000000000000000000000000000000000000000000000000000000000000000
+// returns '0000000000000000000000000000000000000000000000000000000000000000'
 
 str = bits( -0 );
-// returns 1000000000000000000000000000000000000000000000000000000000000000
+// returns '1000000000000000000000000000000000000000000000000000000000000000'
 
 str = bits( NaN );
-// returns 0111111111111000000000000000000000000000000000000000000000000000
+// returns '0111111111111000000000000000000000000000000000000000000000000000'
 
-str = bits( pinf );
-// returns 0111111111110000000000000000000000000000000000000000000000000000
+str = bits( Number.POSITIVE_INFINITY );
+// returns '0111111111110000000000000000000000000000000000000000000000000000'
 
-str = bits( ninf );
-// returns 1111111111110000000000000000000000000000000000000000000000000000
+str = bits( Number.NEGATIVE_INFINITY );
+// returns '1111111111110000000000000000000000000000000000000000000000000000'
 ```
 
 
@@ -71,7 +68,6 @@ str = bits( ninf );
 ``` javascript
 var round = require( 'math-round' );
 var pow = require( 'math-power' );
-var abs = require( 'math-abs' );
 var smallest = require( 'const-smallest-float64' );
 var bits = require( 'math-float64-bits' );
 
@@ -96,55 +92,7 @@ for ( i = 0; i < 100; i++ ) {
 	}
 	x = sign * frac * pow( 2, exp );
 	b = bits( x );
-	log( x, b );
-}
-
-function log( x, b ) {
-	var sign;
-	var frac;
-	var tmp;
-	var exp;
-
-	console.log( '%d => %s', x, b );
-
-	tmp = b.substring( 0, 1 );
-	sign = ( tmp === '1' ) ? -1 : 1;
-	console.log( 'sign: %s', tmp );
-
-	tmp = b.substring( 1, 12 );
-	exp = parseInt( tmp, 2 )-1023;
-	console.log( 'exp: %s => %d', tmp, exp );
-
-	tmp = b.substring( 12 );
-	frac = parseInt( tmp, 2 );
-	console.log( 'frac: %s => %d', tmp, frac );
-
-	frac = tmp;
-	if ( abs(x) < smallest.VALUE ) {
-		frac = '0.' + frac;
-		exp = -1022; // subnormals are special
-	} else {
-		frac = '1.' + frac;
-	}
-	x = sign * frac2double( frac ) * pow( 2, exp );
-
-	console.log( '%d*%s*2^%d = %d\n', sign, frac, exp, x );
-}
-
-function frac2double( frac ) {
-	var sum;
-	var i;
-	if ( frac[ 0 ] === '1' ) {
-		sum = 1; // 2^0
-	} else {
-		sum = 0; // subnormals
-	}
-	for ( i = 2; i < frac.length; i++ ) {
-		if ( frac[ i ] === '1' ) {
-			sum += pow( 2, -(i-1) );
-		}
-	}
-	return sum;
+	console.log( b );
 }
 ```
 
