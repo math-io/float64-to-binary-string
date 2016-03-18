@@ -1,5 +1,5 @@
 {
-  "name": "math-float64-bits",
+  "name": "math-float64-to-binary-string",
   "version": "1.0.1",
   "description": "Returns a string giving the literal bit representation of a double-precision floating-point number.",
   "author": {
@@ -10,6 +10,10 @@
     {
       "name": "Athan Reines",
       "email": "kgryte@gmail.com"
+    },
+    {
+      "name": "Philipp Burckhardt",
+      "email": "pburckhardt@outlook.com"
     }
   ],
   "scripts": {
@@ -23,7 +27,7 @@
   "main": "./lib",
   "repository": {
     "type": "git",
-    "url": "git://github.com/math-io/float64-bits.git"
+    "url": "git://github.com/math-io/float64-to-binary-string.git"
   },
   "keywords": [
     "compute.io",
@@ -47,7 +51,7 @@
     "string"
   ],
   "bugs": {
-    "url": "https://github.com/math-io/float64-bits/issues"
+    "url": "https://github.com/math-io/float64-to-binary-string/issues"
   },
   "dependencies": {
     "const-ninf-float64": "^1.0.0",

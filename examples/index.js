@@ -4,7 +4,7 @@ var round = require( 'math-round' );
 var pow = require( 'math-power' );
 var abs = require( 'math-abs' );
 var smallest = require( 'const-smallest-float64' );
-var bits = require( './../lib' );
+var binaryString = require( './../lib' );
 
 var frac;
 var sign;
@@ -26,7 +26,7 @@ for ( i = 0; i < 100; i++ ) {
 		exp = -exp;
 	}
 	x = sign * frac * pow( 2, exp );
-	b = bits( x );
+	b = binaryString( x );
 	log( x, b );
 }
 
